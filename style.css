@@ -201,3 +201,27 @@ body {
 .volunteer-button {
     margin-top: 35px;
 }
+
+.picked-up {
+    background-color: #005500;
+}
+
+.dropped-off {
+    background-color: #8b0000;
+}
+
+#volunteerLoginCard {
+    width: 400px;
+    color: black;
+    text-align: left;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:25%;
+    bottom:0;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    visibility: hidden;
+}

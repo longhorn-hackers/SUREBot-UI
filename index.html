@@ -32,10 +32,65 @@
             snapshot.forEach(function(child){
                 var key = child.key;
                 var value = child.val();
-                for (var subkey in value) {
-                    console.log(subkey)
-                    console.log(value[subkey])
-                }
+
+                var card = document.createElement('div');
+                card.classList.add('user-card');
+                card.classList.add('card');
+                var cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
+                card.appendChild(cardBody);
+                var cardTitle = document.createElement('div');
+                cardTitle.classList.add('card-title');
+                cardTitle.classList.add('user-name');
+                cardTitle.innerText = value['username'];
+                cardBody.appendChild(cardTitle);
+                var cardSubtitle = document.createElement('div');
+                cardSubtitle.classList.add('card-subtitle');
+                cardSubtitle.classList.add('mb-2');
+                cardSubtitle.classList.add('text-muted');
+                cardSubtitle.classList.add('user-eid');
+                cardSubtitle.innerText = value['eid'];
+                cardBody.appendChild(cardSubtitle);
+                var cardLocation = document.createElement('div');
+                cardLocation.classList.add('card-location');
+                cardBody.appendChild(cardLocation);
+                var cardPickup = document.createElement('div');
+                cardPickup.classList.add('user-pickup-dropoff-body');
+                cardLocation.appendChild(cardPickup);
+                var cardDropoff = document.createElement('div');
+                cardDropoff.classList.add('user-pickup-dropoff-body');
+                cardLocation.appendChild(cardDropoff);
+                var cardPickupPrompt = document.createElement('p');
+                cardPickupPrompt.classList.add('card-text');
+                cardPickupPrompt.innerText = 'Pickup:';
+                cardPickup.appendChild(cardPickupPrompt);
+                var cardPickupLocation = document.createElement('p');
+                cardPickupLocation.classList.add('card-text');
+                cardPickupLocation.classList.add('user-dropoff-pickup-label');
+                cardPickupLocation.innerText = value['pickup_location'];
+                cardPickup.appendChild(cardPickupLocation);
+                var cardDropoffPrompt = document.createElement('p');
+                cardDropoffPrompt.classList.add('card-text');
+                cardDropoffPrompt.innerText = 'Dropoff:';
+                cardDropoff.appendChild(cardDropoffPrompt);
+                var cardDropoffLocation = document.createElement('p');
+                cardDropoffLocation.classList.add('card-text');
+                cardDropoffLocation.classList.add('user-dropoff-pickup-label');
+                cardPickupLocation.innerText = value['dropoff_location'];
+                cardDropoff.appendChild(cardPickupLocation);
+                var cardButton = document.createElement('button');
+                cardButton.classList.add('btn');
+                cardButton.classList.add('btn-primary');
+                cardButton.classList.add('picked-up');
+                cardBody.appendChild(cardButton);
+                var cardButtonAnchor = document.createElement('a');
+                cardButtonAnchor.classList.add('card-link');
+                cardButtonAnchor.innerText = 'Picked-Up';
+                cardButtonAnchor.href = '#';
+                cardButton.appendChild(cardButtonAnchor);
+                cardButton.addEventListener('click', function(){ onArrival(); });
+                var cardInsert = document.getElementById('cardInsert');
+                cardInsert.appendChild(card);
             });
         });
     </script>
@@ -63,7 +118,7 @@
 
             <!-- Container element -->
             <main role="main" class="inner cover cover-head">
-                <h1 class="cover-heading">SUREBot</h1>
+                <h1 -class="cover-heading">SUREBot</h1>
                 <p class="lead">We make getting home easier, faster, and stress-free. Just text 'Hey' to SUREBot at (979)-256-4463 and we'll set you up from there!</p>
                 <p class="lead">
                     <a href="#" class="btn btn-lg btn-secondary volunteer-button" onclick="onVolunteerSignIn()">Volunteer Sign-In</a>
@@ -75,43 +130,41 @@
                     <div class="col">
 
                     </div>
-                    <div class="col-8">
-                        <div class="user-card card">
-                            <div class="card-body">
-                                <div class="card-title user-name">Trenton</div>
-                                <div class="card-subtitle mb-2 text-muted user-eid">stb665</div>
-                                <div class="user-location">
-                                    <div class="user-pickup-dropoff-body">
-                                        <p class="card-text">From:</p>
-                                        <p class="card-text user-dropoff-pickup-label">Omni Hotel, Downtown Austin</p>
-                                    </div>
-                                    <div class="user-pickup-dropoff-body">
-                                        <p class="card-text">To:</p>
-                                        <p class="card-text user-dropoff-pickup-label">Fifth Ring of Hell</p>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-primary picked-up" onclick="onArrival()"><a href="#" class="card-link">Picked-Up</a></button>
-                            </div>
-                            <div class="card-footer"></div>
-                        </div>
-                        <div class="user-card card">
-                            <div class="card-body">
-                                <div class="card-title user-name">Trenton</div>
-                                <div class="card-subtitle mb-2 text-muted user-eid">stb665</div>
-                                <div class="user-location">
-                                    <div class="user-pickup-dropoff-body">
-                                        <p class="card-text">From:</p>
-                                        <p class="card-text user-dropoff-pickup-label">Omni Hotel, Downtown Austin</p>
-                                    </div>
-                                    <div class="user-pickup-dropoff-body">
-                                        <p class="card-text">To:</p>
-                                        <p class="card-text user-dropoff-pickup-label">Fifth Ring of Hell</p>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-primary picked-up" onclick="onArrival()"><a href="#" class="card-link">Picked-Up</a></button>
-                            </div>
-                            <div class="card-footer"></div>
-                        </div>
+                    <div class="col-8" id="cardInsert">
+                        <!--<div class="user-card card">-->
+                            <!--<div class="card-body">-->
+                                <!--<div class="card-title user-name">Trenton</div>-->
+                                <!--<div class="card-subtitle mb-2 text-muted user-eid">stb665</div>-->
+                                <!--<div class="user-location">-->
+                                    <!--<div class="user-pickup-dropoff-body">-->
+                                        <!--<p class="card-text">From:</p>-->
+                                        <!--<p class="card-text user-dropoff-pickup-label">Omni Hotel, Downtown Austin</p>-->
+                                    <!--</div>-->
+                                    <!--<div class="user-pickup-dropoff-body">-->
+                                        <!--<p class="card-text">To:</p>-->
+                                        <!--<p class="card-text user-dropoff-pickup-label">Fifth Ring of Hell</p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<button type="button" class="btn btn-primary picked-up" onclick="onArrival()"><a href="#" class="card-link">Picked-Up</a></button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="user-card card">-->
+                            <!--<div class="card-body">-->
+                                <!--<div class="card-title user-name">Trenton</div>-->
+                                <!--<div class="card-subtitle mb-2 text-muted user-eid">stb665</div>-->
+                                <!--<div class="user-location">-->
+                                    <!--<div class="user-pickup-dropoff-body">-->
+                                        <!--<p class="card-text">From:</p>-->
+                                        <!--<p class="card-text user-dropoff-pickup-label">Omni Hotel, Downtown Austin</p>-->
+                                    <!--</div>-->
+                                    <!--<div class="user-pickup-dropoff-body">-->
+                                        <!--<p class="card-text">To:</p>-->
+                                        <!--<p class="card-text user-dropoff-pickup-label">Fifth Ring of Hell</p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<button type="button" class="btn btn-primary picked-up" onclick="onArrival()"><a href="#" class="card-link">Picked-Up</a></button>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                     <div class="col">
                     </div>
